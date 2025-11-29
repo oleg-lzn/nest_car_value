@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  AfterRemove,
+  AfterUpdate,
+  AfterInsert,
+} from 'typeorm';
 
 @Entity()
 export class ReportsEntity {
@@ -8,6 +15,21 @@ export class ReportsEntity {
 
   @Column()
   price: number;
+
+  @AfterInsert()
+  logInsert() {
+    console.log('Inserted Report with id', this.id);
+  }
+
+  @AfterUpdate()
+  logUpdate() {
+    console.log('Updated Report with id', this.id);
+  }
+
+  @AfterRemove()
+  logRemove() {
+    console.log('Removed Report with id', this.id);
+  }
 
   // @Column()
   // car: string;
