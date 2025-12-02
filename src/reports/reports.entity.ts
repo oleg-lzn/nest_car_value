@@ -16,6 +16,24 @@ export class ReportsEntity {
   @Column()
   price: number;
 
+  @Column()
+  make: string;
+
+  @Column()
+  model: string;
+
+  @Column()
+  year: number;
+
+  @Column()
+  lng: number;
+
+  @Column()
+  lat: number;
+
+  @Column()
+  mileage: string;
+
   @AfterInsert()
   logInsert() {
     console.log('Inserted Report with id', this.id);
@@ -30,15 +48,6 @@ export class ReportsEntity {
   logRemove() {
     console.log('Removed Report with id', this.id);
   }
-
-  // @Column()
-  // car: string;
-
-  // @Column()
-  // make: string;
-
-  // @Column()
-  // year: number;
 
   // @Column
   // // connection with user
