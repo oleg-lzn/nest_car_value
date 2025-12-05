@@ -1,3 +1,4 @@
+import { UserEntity } from 'src/users/user.entity';
 import {
   Entity,
   Column,
@@ -5,6 +6,7 @@ import {
   AfterRemove,
   AfterUpdate,
   AfterInsert,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -32,7 +34,10 @@ export class ReportsEntity {
   lat: number;
 
   @Column()
-  mileage: string;
+  mileage: number;
+
+  @ManyToOne(() => UserEntity, (user) => user.reports)
+  user: UserEntity;
 
   @AfterInsert()
   logInsert() {
