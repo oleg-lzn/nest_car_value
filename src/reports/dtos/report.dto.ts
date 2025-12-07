@@ -26,6 +26,9 @@ export class ReportDto {
   @Expose()
   mileage: number;
 
+  @Expose()
+  approved: boolean;
+
   @Transform(({ obj }) => obj.user.id) // to add the userId - get the property the user argument and add it to the reponse
   @Expose()
   userId: number;

@@ -21,7 +21,10 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @OneToMany(() => ReportsEntity, (report) => report.user)
+  @Column({ default: true })
+  admin: boolean;
+
+  @OneToMany(() => ReportsEntity, (report) => report.user) // establishing a connection to the report
   reports: ReportsEntity[];
 
   @AfterInsert()

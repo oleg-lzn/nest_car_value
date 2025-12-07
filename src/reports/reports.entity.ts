@@ -15,6 +15,9 @@ export class ReportsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ default: false }) // this is how to set the default value for a report
+  approved: boolean;
+
   @Column()
   price: number;
 
@@ -36,7 +39,7 @@ export class ReportsEntity {
   @Column()
   mileage: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.reports)
+  @ManyToOne(() => UserEntity, (user) => user.reports) // establishing a connection to the user
   user: UserEntity;
 
   @AfterInsert()
