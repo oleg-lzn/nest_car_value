@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 interface ClassInterface {
-  new (...args: any[]): {};
+  new (...args: any[]): object;
 }
 
 export function Serialize(dto: ClassInterface) {
