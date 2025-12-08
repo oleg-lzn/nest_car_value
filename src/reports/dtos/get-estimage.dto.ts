@@ -8,7 +8,7 @@ import {
   IsLongitude,
 } from 'class-validator';
 
-export class getEstimateDto {
+export class GetEstimateDto {
   @IsString()
   make: string;
 
