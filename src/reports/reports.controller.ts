@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Get,
+  Query,
 } from '@nestjs/common';
 import { CreateReportDto } from './dtos/create-report.dto';
 import { ReportsService } from './reports.service';
@@ -16,6 +17,7 @@ import { ReportDto } from './dtos/report.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ApproveReportDto } from './dtos/approve.report.dto';
 import { AdminGuard } from 'src/guards/admin.guard';
+import { getEstimateDto } from './dtos/get-estimage.dto';
 
 @Controller('reports')
 export class ReportsController {
@@ -39,11 +41,17 @@ export class ReportsController {
     return report;
   }
 
+  // @Get()
+  // @UseGuards(AuthGuard)
+  // @Serialize(ReportDto)
+  // async getReports(@CurrentUser() user: UserEntity) {
+  //   const reports = await this.ReportsService.getReports(user);
+  //   return reports;
+  // }
+
   @Get()
-  @UseGuards(AuthGuard)
-  @Serialize(ReportDto)
-  async getReports(@CurrentUser() user: UserEntity) {
-    const reports = await this.ReportsService.getReports(user);
-    return reports;
+  // query always comes as a string and needs to be converted to a number in case you
+  getEstimate(@Query() query: getEstimateDto) {
+    console.log(query);
   }
 }
