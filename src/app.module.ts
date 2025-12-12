@@ -8,6 +8,7 @@ import { UserEntity } from './users/user.entity';
 import { ReportsEntity } from './reports/reports.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import cookieSession from 'cookie-session';
+import { dbConfig } from 'ormconfig';
 
 @Module({
   imports: [
@@ -15,19 +16,20 @@ import cookieSession from 'cookie-session';
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
+    TypeOrmModule.forRoot(dbConfig),
     UsersModule,
     ReportsModule,
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
-        return {
-          type: 'sqlite',
-          database: config.get<string>('DB_NAME'),
-          synchronize: true,
-          entities: [UserEntity, ReportsEntity],
-        };
-      },
-    }),
+    // TypeOrmModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   useFactory: (config: ConfigService) => {
+    //     return {
+    //       type: 'sqlite',
+    //       database: config.get<string>('DB_NAME'),
+    //       synchronize: true, // this should be deleted VERY IMPORTANT in production
+    //       entities: [UserEntity, ReportsEntity],
+    //     };
+    //   },
+    // }),
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -40,7 +42,7 @@ export class AppModule {
       .apply(
         cookieSession({
           keys: [
-            this.configService.get<string>('SESSION_KEY') ??
+            this.configService.get<string>('COOKIE_KEY') ??
               'default_session_key',
           ],
         }),
